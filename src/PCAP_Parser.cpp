@@ -2,6 +2,7 @@
 #include <variant>
 #include <span>
 #include <chrono>
+#include <cstring>
 
 #include "PCAP_Parser.hpp"
 #include "SIMBA_Decoder.hpp"

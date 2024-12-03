@@ -135,8 +135,8 @@ SecurityDefinition SIMBADecoder::parseSecurityDefinition(size_t& offset) const n
         offset += sizeof(def.SecurityAltID);
     }
 
-    if (offset + sizeof(def.SecurityAltIDSource) <= packetData.size()) {
-        def.SecurityAltIDSource = parseType<SecurityAltIDSource>(offset);
+    if (offset + sizeof(def.securityAltIDSource) <= packetData.size()) {
+        def.securityAltIDSource = parseType<SecurityAltIDSource>(offset);
     }
 
     if (offset + sizeof(def.SecurityType) <= packetData.size()) {
@@ -157,8 +157,8 @@ SecurityDefinition SIMBADecoder::parseSecurityDefinition(size_t& offset) const n
         def.ContractMultiplier = parseType<int32_t>(offset);
     }
 
-    if (offset + sizeof(def.SecurityTradingStatus) <= packetData.size()) {
-        def.SecurityTradingStatus = parseType<SecurityTradingStatus>(offset);
+    if (offset + sizeof(def.securityTradingStatus) <= packetData.size()) {
+        def.securityTradingStatus = parseType<SecurityTradingStatus>(offset);
     }
 
     if (offset + sizeof(def.Currency) <= packetData.size()) {
@@ -168,12 +168,12 @@ SecurityDefinition SIMBADecoder::parseSecurityDefinition(size_t& offset) const n
 
     // MarketID is static, no parsing needed
 
-    if (offset + sizeof(def.MarketSegmentID) <= packetData.size()) {
-        def.MarketSegmentID = parseType<MarketSegmentID>(offset);
+    if (offset + sizeof(def.marketSegmentID) <= packetData.size()) {
+        def.marketSegmentID = parseType<MarketSegmentID>(offset);
     }
 
-    if (offset + sizeof(def.TradingSessionID) <= packetData.size()) {
-        def.TradingSessionID = parseType<TradingSessionID>(offset);
+    if (offset + sizeof(def.tradingSessionID) <= packetData.size()) {
+        def.tradingSessionID = parseType<TradingSessionID>(offset);
     }
 
     if (offset + sizeof(def.ExchangeTradingSessionID) <= packetData.size()) {
@@ -270,8 +270,8 @@ SecurityDefinition SIMBADecoder::parseSecurityDefinition(size_t& offset) const n
         offset += sizeof(def.SettlCurrency);
     }
 
-    if (offset + sizeof(def.NegativePrices) <= packetData.size()) {
-        def.NegativePrices = parseType<NegativePrices>(offset);
+    if (offset + sizeof(def.negativePrices) <= packetData.size()) {
+        def.negativePrices = parseType<NegativePrices>(offset);
     }
 
     if (offset + sizeof(def.DerivativeContractMultiplier) <= packetData.size()) {

@@ -299,8 +299,8 @@ struct OrderUpdate
     MDFlags2Set MDFlags2;        // Additional bitmask of flags
     int32_t SecurityID;            // Instrument numeric code
     uint32_t RptSeq;               // Market Data entry sequence number
-    MDUpdateAction MDUpdateAction; // Market Data update action
-    MDEntryType MDEntryType;     // Market Data entry type
+    MDUpdateAction mdUpdateAction; // Market Data update action
+    MDEntryType mdEntryType;     // Market Data entry type
 };
 
 // Message: OrderExecution
@@ -316,8 +316,8 @@ struct OrderExecution
     MDFlags2Set MDFlags2;        // Additional bitmask of flags
     int32_t SecurityID;            // Instrument numeric code
     uint32_t RptSeq;               // Market Data entry sequence number
-    MDUpdateAction MDUpdateAction; // Market Data update action
-    MDEntryType MDEntryType;     // Market Data entry type
+    MDUpdateAction mdUpdateAction; // Market Data update action
+    MDEntryType mdEntryType;     // Market Data entry type
 };
 
 // Message: OrderBookSnapshot
@@ -330,7 +330,7 @@ struct OrderBookSnapshotEntry
     int64_t TradeID;           // Trade ID
     MDFlagsSet MDFlags;          // Bitmask of flags
     MDFlags2Set MDFlags2;        // Additional bitmask of flags
-    MDEntryType MDEntryType;     // Market Data entry type
+    MDEntryType mdEntryType;     // Market Data entry type
 };
 
 struct OrderBookSnapshot
@@ -354,16 +354,16 @@ struct SecurityDefinition
     int32_t SecurityID;             // Instrument numeric code
     static constexpr char SecurityIDSource = SECURITY_ID_SOURCE; // Class or source of SecurityID // needs to be constexpr so it's not counted in sequence of memory cos packet doesn't contain this field, it's implied
     char SecurityAltID[25];       // Instrument symbol code
-    SecurityAltIDSource SecurityAltIDSource; // Class of SecurityAltID
+    SecurityAltIDSource securityAltIDSource; // Class of SecurityAltID
     char SecurityType[4];         // Multileg type
     char CFICode[6];              // Financial instrument class
     Decimal5NULL StrikePrice;     // Strike price
     int32_t ContractMultiplier; // Units of underlying asset in instrument
-    SecurityTradingStatus SecurityTradingStatus; // Trading status of the instrument
+    SecurityTradingStatus securityTradingStatus; // Trading status of the instrument
     char Currency[3];             // Currency
     static constexpr char MarketID[4] = { 'M', 'O', 'E', 'X' }; // Market identifier
-    MarketSegmentID MarketSegmentID; // Market segment identifier
-    TradingSessionID TradingSessionID; // Trading session type
+    MarketSegmentID marketSegmentID; // Market segment identifier
+    TradingSessionID tradingSessionID; // Trading session type
     int32_t ExchangeTradingSessionID; // Trading session ID
     Decimal5NULL Volatility;      // Option volatility
     Decimal5NULL HighLimitPx;     // Upper price limit
@@ -387,7 +387,7 @@ struct SecurityDefinition
     DoubleNULL FixedSpotDiscount; // Discounted values of declared cash flows
     DoubleNULL ProjectedSpotDiscount; // Discounted values of projected cash flows
     char SettlCurrency[3];        // Settlement currency
-    NegativePrices NegativePrices; // Negative prices eligibility
+    NegativePrices negativePrices; // Negative prices eligibility
     int32_t DerivativeContractMultiplier; // Volume of underlying asset in the contract
     DoubleNULL InterestRateRiskUp; // Interest risk rate on upward scenario
     DoubleNULL InterestRateRiskDown; // Interest risk rate on downward scenario
@@ -503,7 +503,7 @@ struct SecurityStatus {
     int32_t SecurityID;                     // Instrument numeric code
     char SecurityIDSource = SECURITY_ID_SOURCE; // Identifies class or source of SecurityID value
     char Symbol[25];                        // Symbol code of the instrument
-    SecurityTradingStatus SecurityTradingStatus; // Identifies the trading status of the instrument
+    SecurityTradingStatus securityTradingStatus; // Identifies the trading status of the instrument
     Decimal5NULL HighLimitPx;               // Upper price limit
     Decimal5NULL LowLimitPx;                // Lower price limit
     Decimal2NULL InitialMarginOnBuy;        // Initial margin
@@ -517,7 +517,7 @@ struct SecurityMassStatusEntry
 {
     int32_t SecurityID;            // Instrument numeric code
     char SecurityIDSource = SECURITY_ID_SOURCE; // Class or source of SecurityID
-    SecurityTradingStatus SecurityTradingStatus; // Trading status of the instrument
+    SecurityTradingStatus securityTradingStatus; // Trading status of the instrument
 };
 
 struct SecurityMassStatus

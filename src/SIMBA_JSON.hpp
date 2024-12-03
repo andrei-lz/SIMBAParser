@@ -2,8 +2,10 @@
 
 #include <ostream>
 #include <sstream>
+#include <string>
 #include <variant>
 #include <iomanip>
+#include <cmath>
 
 #include <iostream>
 
@@ -406,8 +408,8 @@ inline std::ostream& operator<<(std::ostream& os, const OrderUpdate& update)
         << ",\"MDFlags2\":" << update.MDFlags2
         << ",\"SecurityID\":" << update.SecurityID
         << ",\"RptSeq\":" << update.RptSeq
-        << ",\"MDUpdateAction\":" << update.MDUpdateAction
-        << ",\"MDEntryType\":\"" << update.MDEntryType << "\"}";
+        << ",\"MDUpdateAction\":" << update.mdUpdateAction
+        << ",\"MDEntryType\":\"" << update.mdEntryType << "\"}";
     return os;
 }
 
@@ -425,8 +427,8 @@ inline std::ostream& operator<<(std::ostream& os, const OrderExecution& executio
         << ",\"MDFlags2\":" << execution.MDFlags2
         << ",\"SecurityID\":" << execution.SecurityID
         << ",\"RptSeq\":" << execution.RptSeq
-        << ",\"MDUpdateAction\":" << execution.MDUpdateAction
-        << ",\"MDEntryType\":\"" << execution.MDEntryType << "\"}";
+        << ",\"MDUpdateAction\":" << execution.mdUpdateAction
+        << ",\"MDEntryType\":\"" << execution.mdEntryType << "\"}";
     return os;
 }
 
@@ -453,7 +455,7 @@ inline std::ostream& operator<<(std::ostream& os, const OrderBookSnapshotEntry& 
         << ",\"TradeID\":" << snapshotEntry.TradeID
         << ",\"MDFlags\":" << snapshotEntry.MDFlags
         << ",\"MDFlags2\":" << snapshotEntry.MDFlags2
-        << ",\"MDEntryType\":\"" << snapshotEntry.MDEntryType << "\"}";
+        << ",\"MDEntryType\":\"" << snapshotEntry.mdEntryType << "\"}";
     return os;
 }
 // Overload for Utf8String
@@ -550,16 +552,16 @@ std::ostream& operator<<(std::ostream& os, const SecurityDefinition& def)
     os << "\"SecurityID\": " << def.SecurityID << ", ";
     os << "\"SecurityIDSource\": " << static_cast<char>(def.SecurityIDSource) << ", ";
     os << "\"SecurityAltID\": \"" << std::string(def.SecurityAltID) << "\", ";
-    os << "\"SecurityAltIDSource\": \"" << def.SecurityAltIDSource << "\", ";
+    os << "\"SecurityAltIDSource\": \"" << def.securityAltIDSource << "\", ";
     os << "\"SecurityType\": \"" << std::string(def.SecurityType) << "\", ";
     os << "\"CFICode\": \"" << std::string(def.CFICode, 6) << "\", ";
     os << "\"StrikePrice\": " << def.StrikePrice << ", ";
     os << "\"ContractMultiplier\": " << def.ContractMultiplier << ", ";
-    os << "\"SecurityTradingStatus\": \"" << def.SecurityTradingStatus << "\", ";
+    os << "\"SecurityTradingStatus\": \"" << def.securityTradingStatus << "\", ";
     os << "\"Currency\": \"" << std::string(def.Currency, strnlen(def.Currency, sizeof(def.Currency))) << "\", ";
     os << "\"MarketID\": \"" << std::string(SecurityDefinition::MarketID, 4) << "\", ";
-    os << "\"MarketSegmentID\": \"" << def.MarketSegmentID << "\", ";
-    os << "\"TradingSessionID\": \"" << def.TradingSessionID << "\", ";
+    os << "\"MarketSegmentID\": \"" << def.marketSegmentID << "\", ";
+    os << "\"TradingSessionID\": \"" << def.tradingSessionID << "\", ";
     os << "\"ExchangeTradingSessionID\": " << def.ExchangeTradingSessionID << ", ";
     os << "\"Volatility\": " << def.Volatility << ", ";
     os << "\"HighLimitPx\": " << def.HighLimitPx << ", ";
@@ -583,7 +585,7 @@ std::ostream& operator<<(std::ostream& os, const SecurityDefinition& def)
     os << "\"FixedSpotDiscount\": " << def.FixedSpotDiscount << ", ";
     os << "\"ProjectedSpotDiscount\": " << def.ProjectedSpotDiscount << ", ";
     os << "\"SettlCurrency\": \"" << std::string(def.SettlCurrency, strnlen(def.SettlCurrency, sizeof(def.SettlCurrency))) << "\", ";
-    os << "\"NegativePrices\": \"" << def.NegativePrices << "\", ";
+    os << "\"NegativePrices\": \"" << def.negativePrices << "\", ";
     os << "\"DerivativeContractMultiplier\": " << def.DerivativeContractMultiplier << ", ";
     os << "\"InterestRateRiskUp\": " << def.InterestRateRiskUp << ", ";
     os << "\"InterestRateRiskDown\": " << def.InterestRateRiskDown << ", ";
@@ -615,7 +617,7 @@ std::ostream& operator<<(std::ostream& os, const SecurityStatus& status)
     os << "SecurityID: " << status.SecurityID << ", ";
     os << "SecurityIDSource: " << status.SecurityIDSource << ", ";
     os << "Symbol: " << std::string(status.Symbol, 25) << ", ";
-    os << "SecurityTradingStatus: " << status.SecurityTradingStatus << ", ";
+    os << "SecurityTradingStatus: " << status.securityTradingStatus << ", ";
     os << "HighLimitPx: " << status.HighLimitPx << ", ";
     os << "LowLimitPx: " << status.LowLimitPx << ", ";
     os << "InitialMarginOnBuy: " << status.InitialMarginOnBuy << ", ";
