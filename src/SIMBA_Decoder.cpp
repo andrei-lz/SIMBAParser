@@ -1,6 +1,6 @@
 #include "SIMBA_Decoder.hpp"
 
-#include <stdexcept>
+#include <cstring>
 #include <memory>
 
 #include <type_traits>

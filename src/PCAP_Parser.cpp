@@ -15,12 +15,12 @@
     #include <netinet/in.h>
 #endif
 
-#define EXTRA_BUFFER_SPACE 400
+#define EXTRA_BUFFER_SPACE 1.2
 
 PCAPParser::PCAPParser(const std::string& inputFilePath, const std::string& outputFilePath)
     : inputMapper(inputFilePath) {
     
-    chunkDataBuffer = new char[inputMapper.getChunkSize() + EXTRA_BUFFER_SPACE];
+    chunkDataBuffer = new char[inputMapper.getChunkSize() * EXTRA_BUFFER_SPACE];
     inputMapper.fetchNextChunk(chunkOffset, chunkUnprocessedSize); // Start reading input
 
     outputFile.open(outputFilePath, std::ios::out);
@@ -57,11 +57,12 @@ void PCAPParser::parse()
     auto begin = std::chrono::high_resolution_clock::now();
     auto start = begin;
 
-    // while (pcapFile.peek() != EOF)
-    for (size_t i = 0; i < 100000; i++)
+    // for (size_t i = 0; i < 100000; i++)
+    size_t i = 1;
+    while (chunkUnprocessedSize > 0)
     {
         parsePCAPPacket();
-        if (i % 10000 == 0)
+        if (i % 50000 == 0)
         {
             std::cout << i << " packets processed | "
                 << std::chrono::duration_cast<std::chrono::milliseconds>(std::chrono::high_resolution_clock::now() - start) << " | "
@@ -72,6 +73,7 @@ void PCAPParser::parse()
             jsonBuffer.str("");
             jsonBuffer.clear();
         }
+        i++;
     }
 }
 
@@ -312,9 +314,9 @@ void PCAPParser::readMoreInput()
     if (!inputMapper.fetchNextChunk(newChunkData, newChunkSize)) {
         throw std::runtime_error("No more data available");
     }
-
+    auto debug = inputMapper.getChunkSize();
     // Ensure new data fits within the preallocated buffer
-    if (remainingSize + newChunkSize > inputMapper.getChunkSize() + EXTRA_BUFFER_SPACE) { // bufferSize = chunkSize + EXTRA_BUFFER_SPACE
+    if (remainingSize + newChunkSize > inputMapper.getChunkSize() * EXTRA_BUFFER_SPACE) { // bufferSize = chunkSize + EXTRA_BUFFER_SPACE
         throw std::runtime_error("Preallocated buffer is too small");
     }
 

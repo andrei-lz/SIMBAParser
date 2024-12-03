@@ -3,15 +3,14 @@
 #include <iostream>
 #include <string>
 
-#include "IO_Mapper.hpp"
 #include "PCAP_Parser.hpp"
 
 int main(int argc, char* argv[])
 {
-	std::string pcapDumpFile = "D:/Projects/C++/PCAP Parser/2023-10-10.0845-0905.pcap/2023-10-10.0845-0905.pcap";
-	std::string outputFile = "D:/Projects/C++/PCAP Parser/my-program.json";
+	std::string pcapDumpFile = "";
+	std::string outputFile = "output.json";
 
-	/*for (int i = 1; i < argc; ++i)
+	for (int i = 1; i < argc; ++i)
 	{
 	    std::string arg = argv[i];
 	    if ((arg == "-p" || arg == "--pcap_dump") && i + 1 < argc)
@@ -22,7 +21,7 @@ int main(int argc, char* argv[])
 		{
 	        outputFile = argv[++i];
 	    }
-	}*/
+	}
 
 	if (pcapDumpFile.empty() || outputFile.empty()) {
 	    std::cerr << "Usage: " << std::endl << " -p [pcap file] " << std::endl << " -o [output file]" << std::endl;
