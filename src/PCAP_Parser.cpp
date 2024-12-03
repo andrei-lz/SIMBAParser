@@ -20,7 +20,7 @@
 PCAPParser::PCAPParser(const std::string& inputFilePath, const std::string& outputFilePath)
     : inputMapper(inputFilePath) {
     
-    chunkDataBuffer = new char[inputMapper.getChunkSize() * EXTRA_BUFFER_SPACE];
+    chunkDataBuffer = new char[static_cast<size_t>(inputMapper.getChunkSize() * EXTRA_BUFFER_SPACE)];
     inputMapper.fetchNextChunk(chunkOffset, chunkUnprocessedSize); // Start reading input
 
     outputFile.open(outputFilePath, std::ios::out);
